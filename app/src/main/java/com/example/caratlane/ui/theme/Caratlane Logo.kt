@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,6 +48,18 @@ fun Caratlane (modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
             .padding(start =55.dp)
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedTextField(
+            value = pincode,
+            onValueChange = {pincode = it},
+            lable = { Text("Enter Pincode")},
+            keyboardOptions = KeyboardOptions.Default.copy(
+                KeyboardType = KeyboardType.Number
+            )
+
         )
     }
 }
