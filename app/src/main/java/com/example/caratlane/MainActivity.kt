@@ -1,5 +1,6 @@
 package com.example.caratlane
 
+import android.R.attr.title
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -55,6 +57,10 @@ fun MainScreen(){
         Spacer(modifier = Modifier.height(1.dp))
 
         SearchBar()
+
+        Spacer(modifier = Modifier.height(1.dp))
+
+        CategoryItem()
     }
 }
 
@@ -145,6 +151,31 @@ fun SearchBar(){
     }
 }
 
+@Composable
+fun CategoryItem(){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(8.dp)
+            .width(90.dp)
+    ){
+        Image(
+            painter = painterResource(id = R.drawable.rings),
+            contentDescription = "ring",
+            modifier = Modifier
+            .size(80.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.LightGray)
+        )
+        Text(
+            text = "Rings",
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
 
 
 
