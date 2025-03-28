@@ -31,6 +31,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.nio.file.WatchEvent
 
 class MainActivity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +54,10 @@ fun MainScreen(){
         Spacer(modifier = Modifier.height(1.dp))
 
         SearchBar()
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        CategoryList()
 
     }
 }
@@ -143,6 +148,46 @@ fun SearchBar(){
         )
     }
 }
+
+@Composable
+fun CategoryList(){
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ){
+        CategoryItem(imageRes = R.drawable.rings, title= "Rings")
+        CategoryItem(imageRes = R.drawable.earrings, title = "Earrings")
+        CategoryItem(imageRes = R.drawable.necklaces, title = "Necklaces")
+        CategoryItem(imageRes = R.drawable.bracelets, title = "Bracelets & Bangles")
+    }
+}
+
+@Composable
+fun CategoryItem(imageRes: Int, title: String){
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(4.dp)
+            .width(70.dp)
+    ){
+        Image(
+            painter = painterResource(id= imageRes),
+            contentDescription = title,
+            modifier = Modifier
+                .size(80.dp)
+                .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
+        )
+        Text(
+            text = title,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+
 
 
 
