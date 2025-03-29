@@ -160,6 +160,19 @@ fun CategoryList(){
         CategoryItem(imageRes = R.drawable.necklaces, title = "Necklaces")
         CategoryItem(imageRes = R.drawable.bracelets, title = "Bracelets & Bangles")
     }
+
+    Spacer(modifier = Modifier.height(8.dp))
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ){
+        CategoryItem(imageRes = R.drawable.latest, title = "Latest")
+        CategoryItem(imageRes = R.drawable.everyday, title = "Everyday 22KT")
+        CategoryItem(imageRes = R.drawable.silver, title = "Silver by Shaya")
+        CategoryItem(imageRes = R.drawable.kt, title = "9KT")
+    }
+
 }
 
 @Composable
