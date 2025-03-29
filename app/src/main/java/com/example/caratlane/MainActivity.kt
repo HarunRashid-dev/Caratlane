@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -23,6 +26,8 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +36,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.nio.file.WatchEvent
 
 class MainActivity : ComponentActivity(){
@@ -58,6 +65,10 @@ fun MainScreen(){
         Spacer(modifier = Modifier.height(5.dp))
 
         CategoryList()
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        AutoSlidingImageSlider()
 
     }
 }
@@ -198,6 +209,47 @@ fun CategoryItem(imageRes: Int, title: String){
             modifier = Modifier.padding(top = 4.dp)
         )
     }
+}
+
+@Composable
+fun AutoSlidingImageSlider(){
+    val image = listOf(
+        R.drawable.luna,
+        R.drawable.shaya,
+        R.drawable.sol
+        )
+
+    val pagerState = rememberPagerState(pageCount = { image.size })
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        while (true){
+            delay(9000)
+            coroutineScope.launch {
+                val nextPage = (pagerState.currentPage + 1) % image.size
+                pagerState.animateScrollToPage(nextPage)
+            }
+        }
+    }
+
+    Column (
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .fillMaxWidth()
+                    .height(300.dp)
+        ) { page ->
+            Image(
+                painter = painterResource(id = image[page]),
+                contentDescription = "Jewelry Banner $page",
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+
 }
 
 
