@@ -1,6 +1,7 @@
 package com.example.caratlane
 
 import android.os.Bundle
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,6 +37,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
@@ -76,6 +80,10 @@ fun MainScreen(){
         item { Spacer(modifier = Modifier.height(3.dp))}
 
         item { gold() }
+
+        item { Spacer(modifier = Modifier.height(3.dp))}
+
+        item { StillThinkingSection() }
 
     }
 }
@@ -247,7 +255,7 @@ fun AutoSlidingImageSlider(){
             state = pagerState,
             modifier = Modifier
                 .fillMaxWidth()
-                    .height(300.dp)
+                .height(300.dp)
         ) { page ->
             Image(
                 painter = painterResource(id = image[page]),
@@ -264,10 +272,97 @@ fun gold(){
         Image(
             painter = painterResource(id = R.drawable.freegold),
             contentDescription = "Free Gold",
-            modifier = Modifier.fillMaxWidth().height(200.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
         )
     }
 
+@Composable
+fun StillThinkingSection(){
+    Column (
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFFF5F0FF), shape = RoundedCornerShape(12.dp))
+            .padding(16.dp)
+    ){
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painter = painterResource(id = R.drawable.clock),
+                contentDescription = "Clock Icon",
+                tint = Color(0xFF6B44C5),
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "Still Thinking about these?",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+        }
+
+        Text(
+            text = "Look back at your recent browser designs",
+            fontSize = 12.sp,
+            color = Color.Gray,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth()
+        ){
+            items(3) { index ->
+                RecentlyViewItem()
+            }
+        }
+
+    }
+}
+
+@Composable
+fun RecentlyViewItem() {
+    Column(
+        modifier = Modifier
+            .width(120.dp)
+            .background(Color.White, shape = RoundedCornerShape(8.dp))
+            .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.only),
+            contentDescription = "only for me ring",
+            modifier = Modifier
+                .size(80.dp)
+                .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "₹9,486",
+            fontSize = 12.sp,
+            color = Color.Black,
+        )
+
+        Text(
+            text = "₹10,722",
+            fontSize = 12.sp,
+            color = Color.Gray,
+            style = TextStyle(textDecoration = TextDecoration.LineThrough)
+        )
+
+        Text(
+            text = "Zayn Gemstone Stud",
+            fontSize = 10.sp,
+            color = Color.Gray,
+            maxLines = 1
+        )
+    }
+}
 
 
 
