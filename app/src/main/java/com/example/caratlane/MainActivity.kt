@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,24 +52,30 @@ class MainActivity : ComponentActivity(){
 
 @Composable
 fun MainScreen(){
-    Column(
+
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-    ){
-        HeaderSection()
+    )
+    {
+        item { HeaderSection() }
 
-        Spacer(modifier = Modifier.height(1.dp))
+        item { Spacer(modifier = Modifier.height(1.dp))}
 
-        SearchBar()
+        item { SearchBar() }
 
-        Spacer(modifier = Modifier.height(5.dp))
+        item { Spacer(modifier = Modifier.height(5.dp))}
 
-        CategoryList()
+        item { CategoryList() }
 
-        Spacer(modifier = Modifier.height(5.dp))
+        item { Spacer(modifier = Modifier.height(9.dp))}
 
-        AutoSlidingImageSlider()
+        item { AutoSlidingImageSlider() }
+
+        item { Spacer(modifier = Modifier.height(3.dp))}
+
+        item { gold() }
 
     }
 }
@@ -252,6 +259,14 @@ fun AutoSlidingImageSlider(){
 
 }
 
+@Composable
+fun gold(){
+        Image(
+            painter = painterResource(id = R.drawable.freegold),
+            contentDescription = "Free Gold",
+            modifier = Modifier.fillMaxWidth().height(200.dp)
+        )
+    }
 
 
 
