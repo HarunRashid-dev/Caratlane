@@ -48,8 +48,13 @@ import java.nio.file.WatchEvent
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
-
-
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CheckboxDefaults.colors
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Constraints
+import kotlin.contracts.contract
 
 
 class MainActivity : ComponentActivity(){
@@ -91,6 +96,10 @@ fun MainScreen(){
         item { Spacer(modifier = Modifier.height(3.dp))}
 
         item { StillThinkingSection() }
+
+        item { Spacer(modifier = Modifier.height(3.dp))}
+
+        item { GoldSavingBanner() }
 
     }
 }
@@ -382,6 +391,55 @@ fun RecentlyViewedItem(item: RecentlyViewedItem) {
             color = Color.Gray,
             maxLines = 1
         )
+
+    }
+}
+
+@Composable
+fun GoldSavingBanner(){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(12.dp),
+        elevation = 4.dp
+    ){
+        Column(
+            modifier = Modifier
+                .background(Color(0xFF0A74DA))
+                .padding(16.dp)
+        ){
+            Image(
+                painter = painterResource(id = R.drawable.goldsaving),
+                contentDescription = "Gold Saving Scheme",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp),
+                contractScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Gold Saving Scheme (PoP!)",
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                fontSize = 18.sp
+            )
+
+            Text(
+                text = "Complete 9 installments and enjoy the 10th one Free!",
+                color = Color.White,
+                fontSize = 14.sp
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = { },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            ) {
+                Text("ENROLL NOW", color = Color.Blue)
+            }
+
+        }
 
     }
 }
