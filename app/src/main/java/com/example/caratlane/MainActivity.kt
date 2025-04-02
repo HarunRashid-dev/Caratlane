@@ -1,5 +1,6 @@
 package com.example.caratlane
 
+import android.icu.util.Currency
 import android.os.Bundle
 import android.widget.Space
 import androidx.activity.ComponentActivity
@@ -21,7 +22,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Search
@@ -34,6 +34,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -44,6 +45,12 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.nio.file.WatchEvent
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
+
+
+
 
 class MainActivity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -280,17 +287,23 @@ fun gold(){
 
 @Composable
 fun StillThinkingSection(){
-    Column (
+
+    val recentlyViewedItems = listOf(
+        RecentlyViewedItem(R.drawable.recently, "9,486", "10,722", "Luna Gemstone Stud"),
+        RecentlyViewedItem(R.drawable.shayaa, "8,999", "10,000", "Shaya Diamond Ring"),
+        RecentlyViewedItem(R.drawable.sola, "10,500", "12,000", "Sol Gold Earrings")
+    )
+
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFFF5F0FF), shape = RoundedCornerShape(12.dp))
             .padding(16.dp)
     ){
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically){
             Icon(
-                painter = painterResource(id = R.drawable.clock),
-                contentDescription = "Clock Icon",
-                tint = Color(0xFF6B44C5),
+                imageVector = Icons.Filled.AccessTime,
+                contentDescription = "Default clock icon",
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
@@ -315,16 +328,24 @@ fun StillThinkingSection(){
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.fillMaxWidth()
         ){
-            items(3) { index ->
-                RecentlyViewItem()
+            items(recentlyViewedItems) { item ->
+                RecentlyViewedItem(item = item)
             }
         }
 
     }
+
 }
 
+data class RecentlyViewedItem(
+    val imageRes: Int,
+    val currentPrice: String,
+    val oldPrice: String,
+    val title: String
+)
+
 @Composable
-fun RecentlyViewItem() {
+fun RecentlyViewedItem(item: RecentlyViewedItem) {
     Column(
         modifier = Modifier
             .width(120.dp)
@@ -333,8 +354,8 @@ fun RecentlyViewItem() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.only),
-            contentDescription = "only for me ring",
+            painter = painterResource(id = item.imageRes),
+            contentDescription = item.title,
             modifier = Modifier
                 .size(80.dp)
                 .background(Color.LightGray, shape = RoundedCornerShape(8.dp))
@@ -343,27 +364,27 @@ fun RecentlyViewItem() {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "₹9,486",
+            text = item.currentPrice,
             fontSize = 12.sp,
             color = Color.Black,
         )
 
         Text(
-            text = "₹10,722",
+            text = item.oldPrice,
             fontSize = 12.sp,
             color = Color.Gray,
             style = TextStyle(textDecoration = TextDecoration.LineThrough)
         )
 
         Text(
-            text = "Zayn Gemstone Stud",
+            text = item.title,
             fontSize = 10.sp,
             color = Color.Gray,
             maxLines = 1
         )
+
     }
 }
-
 
 
 
