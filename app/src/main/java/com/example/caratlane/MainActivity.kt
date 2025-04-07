@@ -51,6 +51,7 @@ import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CheckboxDefaults.colors
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Constraints
@@ -402,11 +403,11 @@ fun GoldSavingBanner(){
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(12.dp),
-        elevation = 4.dp
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ){
         Column(
             modifier = Modifier
-                .background(Color(0xFF0A74DA))
+                .background(Color(0xFF7D9BC2))
                 .padding(16.dp)
         ){
             Image(
@@ -415,7 +416,7 @@ fun GoldSavingBanner(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp),
-                contractScale = ContentScale.Crop
+                contentScale = ContentScale.Crop
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -434,7 +435,7 @@ fun GoldSavingBanner(){
             Spacer(modifier = Modifier.height(8.dp))
             Button(
                 onClick = { },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.White)
             ) {
                 Text("ENROLL NOW", color = Color.Blue)
             }
