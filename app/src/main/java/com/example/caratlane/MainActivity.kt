@@ -1,5 +1,6 @@
 package com.example.caratlane
 
+import com.example.caratlane.NavigationGraph
 import android.icu.util.Currency
 import android.os.Bundle
 import android.widget.Space
@@ -53,9 +54,21 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CheckboxDefaults.colors
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Constraints
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
+import androidx.navigation.Navigator
+import androidx.navigation.compose.rememberNavController
+import com.example.caratlane.ui.theme.BottomNavItems
+import com.example.caratlane.ui.theme.BottomNavigationBar
+import kotlinx.coroutines.flow.combine
 import kotlin.contracts.contract
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.example.caratlane.ui.theme.NavigationGraph
 
 
 class MainActivity : ComponentActivity(){
@@ -63,8 +76,50 @@ class MainActivity : ComponentActivity(){
         super.onCreate(savedInstanceState)
         setContent {
             MainScreen()
+            val navController = rememberNavController()
+            NavigationGraph(navController)
+            }
         }
     }
+
+@Composable
+fun MyComposableScreen(navController: NavController, modifier: Modifier = Modifier){
+    NavHost(
+        navController = navController,
+        startDestination = BottomNavItems.Home.route,
+        modifier = modifier
+    ){
+        composable(BottomNavItems.Home.route) {HomeScreen()}
+        composable(BottomNavItems.Categories.route) { CategoriesScreen() }
+        composable(BottomNavItems.popi.route) {popiScreen() }
+        composable(BottomNavItems.FindStore.route) {FindStoreScreeen()}
+        composable(BottomNavItems.You.route) {YouScreen()}
+    }
+}
+
+@Composable
+fun HomeScreen() {
+    Text(text = "Home Screen")
+}
+
+@Composable
+fun CategoriesScreen(){
+    Text(text = "CategoriesScreen")
+}
+
+@Composable
+fun popiScreen(){
+    Text(text = "popiScreen")
+}
+
+@Composable
+fun FindStoreScreeen(){
+    Text(text = "FindStoreScreeen")
+}
+
+@Composable
+fun YouScreen(){
+    Text(text = "YouScreen")
 }
 
 @Composable

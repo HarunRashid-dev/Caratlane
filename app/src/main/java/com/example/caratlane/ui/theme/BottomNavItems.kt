@@ -26,3 +26,4 @@ val bottomNavItems = listOf(
     BottomNavItems.FindStore,
     BottomNavItems.You
 )
+
