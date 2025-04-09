@@ -500,6 +500,61 @@ fun GoldSavingBanner(){
     }
 }
 
+@Composable
+fun ServiceSection() {
+    val serviceItems = listOf(
+        ServiceItemData(Icons.Filled.Home, "Try Designs at Home"),
+        ServiceItemData(Icons.Filled.Videocam, "View Designs on Live Video"),
+        ServiceItemData(Icons.Filled.Store, "Find a Store Near You")
+    )
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        serviceItems.forEach { item ->
+            ServiceItemCard(item)
+        }
+    }
+}
+
+@Composable
+fun ServiceItemCard(item: ServiceItemData) {
+    Box(
+        modifier = Modifier
+            .size(120.dp) // Square size
+            .clip(RoundedCornerShape(24.dp)) // Rounded corners
+            .background(
+                brush = Brush.linearGradient(
+                    colors = listOf(Color(0xFFFFF0D0), Color(0xFFFFE0F0)) // Gradient colors
+                )
+            )
+            .padding(12.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Icon(
+                imageVector = item.icon,
+                contentDescription = item.title,
+                modifier = Modifier.size(30.dp),
+                tint = Color.Black
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = item.title,
+                fontSize = 12.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+data class ServiceItemData(
+    val icon: ImageVector,
+    val title: String
+)
+
 
 
 
